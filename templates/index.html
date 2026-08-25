@@ -3,188 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarPredict | Used Car Price Prediction</title>
-    <meta name="description" content="Used car price prediction web app built with Flask and linear regression.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Car Price Prediction System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <!-- Main header and navigation -->
-    <header class="site-header">
-        <div class="container header-row">
-            <a class="brand" href="#home">CarPredict</a>
-            <nav class="site-nav" aria-label="Primary">
-                <a href="#home">Home</a>
-                <a href="#prediction">Prediction</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-            </nav>
-        </div>
-    </header>
+    <main class="page">
+        <header>
+            <p class="eyebrow">Machine Learning Project</p>
+            <h1>Car Price Prediction System</h1>
+            <p>Enter used-car details to estimate its selling price using the trained Random Forest model.</p>
+        </header>
 
-    <main id="home">
-        <!--  hero area  -->
-        <section class="hero-section">
-            <div class="container hero-grid">
-                <div class="hero-copy">
-                    <p class="eyebrow"> Machine Learning Project</p>
-                    <h1>Used Car Price Prediction </h1>
-                    <p class="subtitle">
-                        Enter the car details and get an instant estimate from the trained Linear Regression model.
-                    </p>
-                    <div class="hero-actions">
-                        <a class="btn btn-primary" href="#prediction">Predict Price</a>
-                        <a class="btn btn-secondary" href="#about">Learn More</a>
-                    </div>
-                </div>
-                <div class="hero-image-card">
-                    <img
-                        src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1200&q=80"
-                        alt="A professional used car preview"
-                    >
-                </div>
+        {% if error %}
+        <p class="message error">{{ error }}</p>
+        {% endif %}
+
+        <form action="{{ url_for('predict') }}" method="post">
+            <div class="form-grid">
+                <label>Brand
+                    <select name="brand" required>
+                        <option value="" selected disabled>Select Brand</option>
+                        {% for option in options["brand"] %}
+                        <option value="{{ option }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <label>Fuel Type
+                    <select name="fuel" required>
+                        <option value="" selected disabled>Select Fuel Type</option>
+                        {% for option in options["fuel"] %}
+                        <option value="{{ option }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <label>Seller Type
+                    <select name="seller_type" required>
+                        <option value="" selected disabled>Select Seller Type</option>
+                        {% for option in options["seller_type"] %}
+                        <option value="{{ option }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <label>Transmission
+                    <select name="transmission" required>
+                        <option value="" selected disabled>Select Transmission</option>
+                        {% for option in options["transmission"] %}
+                        <option value="{{ option }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <label>Owner
+                    <select name="owner" required>
+                        <option value="" selected disabled>Select Owner</option>
+                        {% for option in options["owner"] %}
+                        <option value="{{ option }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <label>Kilometers Driven
+                    <input type="number" name="km_driven" min="0" step="1" value="50000" required>
+                </label>
+                <label>Mileage
+                    <input type="number" name="mileage" min="0" step="0.1" value="22.5" required>
+                </label>
+                <label>Engine (CC)
+                    <input type="number" name="engine" min="0" step="1" value="1248" required>
+                </label>
+                <label>Max Power (bhp)
+                    <input type="number" name="max_power" min="0" step="0.1" value="74" required>
+                </label>
+                <label>Car Age (years)
+                    <input type="number" name="car_age" min="0" step="1" value="6" required>
+                </label>
             </div>
-        </section>
-
-        <!-- Feature cards  -->
-        <section class="features-section">
-            <div class="container feature-grid">
-                <article class="feature-card">
-                    <i class="fa-solid fa-brain feature-icon"></i>
-                    <h2>Machine Learning</h2>
-                    <p>Built with Scikit-learn and a Linear Regression model trained on used car data.</p>
-                </article>
-                <article class="feature-card">
-                    <i class="fa-solid fa-bolt feature-icon"></i>
-                    <h2>Fast Prediction</h2>
-                    <p>Send the form once and receive the result through a simple Flask endpoint.</p>
-                </article>
-                <article class="feature-card">
-                    <i class="fa-solid fa-bullseye feature-icon"></i>
-                    <h2> Results</h2>
-                    <p>Uses the same feature encoding and saved model from the notebook workflow.</p>
-                </article>
-                <article class="feature-card">
-                    <i class="fa-solid fa-database feature-icon"></i>
-                    <h2>Data Driven</h2>
-                    <p>Uses a dataset of used cars with features like brand, mileage, engine size, and more.</p>
-                </article>
+            <div class="form-actions">
+                <button type="submit">Predict Price</button>
+                <button type="button" class="reset-button" onclick="window.location.href='/'">Reset</button>
             </div>
+        </form>
+
+        {% if result %}
+        <section class="result" aria-live="polite">
+            <h2>Predicted Selling Price</h2>
+            <strong>{{ result }}</strong>
         </section>
-
-        <!-- The form  -->
-        <section id="prediction" class="prediction-section">
-            <div class="container">
-                <div class="section-heading">
-                    <p class="eyebrow">Prediction form</p>
-                    <h2>Enter used car details</h2>
-                    <p>Fill in the fields below to generate a price estimate.</p>
-                </div>
-
-                {% if error %}
-                <div class="alert alert-error" role="alert">{{ error }}</div>
-                {% endif %}
-
-                <div class="prediction-layout">
-                    <form id="prediction-form" class="prediction-card" action="{{ url_for('predict') }}" method="post" novalidate>
-                        <div class="form-grid">
-                            {% for field in feature_order %}
-                            <div class="form-group">
-                                <label for="{{ field }}">{{ field_meta[field].label }}</label>
-                                {% if field_meta[field].type == 'select' %}
-                                <select id="{{ field }}" name="{{ field }}" required>
-                                    <option value="">Select {{ field_meta[field].label }}</option>
-                                    {% for option in options[field] %}
-                                    <option value="{{ option }}" {% if form_values.get(field, defaults[field]) == option %}selected{% endif %}>{{ option }}</option>
-                                    {% endfor %}
-                                </select>
-                                {% else %}
-                                <input
-                                    id="{{ field }}"
-                                    name="{{ field }}"
-                                    type="number"
-                                    value="{{ form_values.get(field, defaults[field]) }}"
-                                    placeholder="Enter {{ field_meta[field].label }}"
-                                    step="{{ field_meta[field].step }}"
-                                    min="{{ field_meta[field].min }}"
-                                    required
-                                >
-                                {% endif %}
-                                <small>{{ field_meta[field].help }}</small>
-                                <p class="field-error hidden" data-error-for="{{ field }}"></p>
-                            </div>
-                            {% endfor %}
-                        </div>
-
-                        <div class="form-actions">
-                            <button type="submit" id="predict-btn" class="btn btn-primary btn-large">
-                                <span class="btn-text">Predict Price</span>
-                                <span class="btn-loading hidden"><i class="fa-solid fa-spinner fa-spin"></i> Predicting...</span>
-                            </button>
-                            <button type="reset" id="reset-btn" class="btn btn-secondary btn-large">Reset</button>
-                        </div>
-                    </form>
-
-                    <!-- box stays hidden until the model returns a prediction. -->
-                    <aside id="result-card" class="result-card {% if not result %}hidden{% endif %}" aria-live="polite">
-                        <div class="result-header">
-                            <i class="fa-solid fa-circle-check result-icon"></i>
-                            <div>
-                                <p class="eyebrow">Prediction completed</p>
-                                <h3>Estimated Price</h3>
-                            </div>
-                        </div>
-                        <strong id="prediction-value">{{ result.formatted_price if result else 'RS. 0' }}</strong>
-                        <p id="prediction-copy">{{ 'Prediction completed successfully.' if result else 'Prediction result will appear here after form submission.' }}</p>
-                        <div id="prediction-meta" class="result-tags"></div>
-                    </aside>
-                </div>
-            </div>
-        </section>
-
-        <!-- About section gives a short explanation for the project presentation. -->
-        <section id="about" class="about-section">
-            <div class="container about-grid">
-                <div>
-                    <p class="eyebrow">About</p>
-                    <h2>Built for clarity, maintainability, and presentation</h2>
-                    <p>
-                        The app uses Flask for the backend and a  front end 
-                       
-                    </p>
-                </div>
-                <div class="about-cards">
-                    <article class="mini-card">
-                        <h3>Backend</h3>
-                        <p>Flask receives JSON, validates inputs, and returns a prediction response.</p>
-                    </article>
-                    <article class="mini-card">
-                        <h3>Frontend</h3>
-                        <p>Responsive HTML and CSS </p>
-                    </article>
-                    <article class="mini-card">
-                        <h3>JavaScript</h3>
-                        <p>Vanilla JavaScript handles validation, loading state, reset, and result rendering.</p>
-                    </article>
-                    <article class="mini-card">
-                        <h3>Deployment</h3>
-                    </article>
-                </div>
-            </div>
-        </section>
+        {% endif %}
     </main>
 
-    <!-- Footer keeps  -->
-    <footer id="contact" class="site-footer">
-        <div class="container footer-row">
-            <p>CarPredict - Used Car Price Prediction System</p>
-            <p>Contact: <a href="mailto:sh.prashant24@ncmt.edu.np">sh.prashant24@ncmt.edu.np</a></p>
-        </div>
+    <footer class="footer">
+        <strong>&copy; 2026 Car Price Prediction System</strong>
+        <span>Car Price Prediction Project - Machine Learning</span>
+        <span>BIT 11/24 'A' | 4th Semester Project</span>
+        <span>Supriya Khadka &bull; Neha Thapa Magar &bull; Prashant Shrestha &bull; Sandesh Khadka</span>
     </footer>
-
-    <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
