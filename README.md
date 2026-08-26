@@ -31,6 +31,7 @@ Predicted Car Price
 
 
  Technologies Used
+
 Python – Programming language
 Pandas & NumPy – Data processing
 Scikit-learn – Machine Learning
@@ -74,6 +75,8 @@ Car Age
 Categorical features are converted into numerical values during preprocessing using encoders.
 
 Project Workflow
+
+
 Dataset
    ↓
 Data Cleaning & Preprocessing
@@ -122,7 +125,10 @@ Car_Price_Prediction_Linear_Regression/
 │
 └── Car_Price_Prediction_Linear_Regression.ipynb
 
+
+
 Main Files
+
 app.py – Flask application and prediction logic
 car_price_model.pkl – Saved final Random Forest model and preprocessing information
 index.html – Web application interface
