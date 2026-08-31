@@ -29,9 +29,9 @@ Flask Web Application
      ↓
 Predicted Car Price
 
-
+```
  Technologies Used
-
+```
 Python – Programming language
 Pandas & NumPy – Data processing
 Scikit-learn – Machine Learning
@@ -41,7 +41,7 @@ HTML & CSS – User interface
 Jupyter Notebook – Model development
 Git & GitHub – Version control
 
-
+```
 Machine Learning Models
 
 Two regression models were developed and compared:
@@ -60,7 +60,7 @@ After comparing both models using R² Score, MAE, and RMSE, Random Forest Regres
 Input Features
 
 The model uses the following vehicle features:
-
+```
 Car Brand
 Kilometres Driven
 Fuel Type
@@ -71,12 +71,12 @@ Mileage
 Engine
 Maximum Power
 Car Age
-
+```
 Categorical features are converted into numerical values during preprocessing using encoders.
 
 Project Workflow
 
-
+```
 Dataset
    ↓
 Data Cleaning & Preprocessing
@@ -99,6 +99,7 @@ Flask Web Application
    ↓
 Price Prediction
 
+```
 
 Model Evaluation
 
@@ -108,7 +109,7 @@ Metric	Description	Better Result
 MAE	Average prediction error	Lower
 RMSE	Measures prediction error with greater weight on large errors	Lower
 R² Score	Measures how well the model explains price variation	Higher
-
+```
 Project Structure
 Car_Price_Prediction_Linear_Regression/
 │
@@ -125,7 +126,7 @@ Car_Price_Prediction_Linear_Regression/
 │
 └── Car_Price_Prediction_Linear_Regression.ipynb
 
-
+```
 
 Main Files
 
@@ -145,38 +146,42 @@ The following steps can be used to run the project locally.
 1. Clone the Repository
 
 Open PowerShell or Command Prompt and run:
-
+```
 git clone https://github.com/SandeshKhadka77/car-price-prediction-ml.git
-
+```
 Then move into the project folder:
-
+```
 cd car-price-prediction-ml
+```
 2. Create a Virtual Environment
 
 Create a Python virtual environment:
-
+```
 python -m venv .venv
+```
 3. Activate the Virtual Environment
 Windows PowerShell
+```
 .venv\Scripts\Activate.ps1
-
+```
 If PowerShell does not allow script execution, run:
 
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
 
 Then activate the environment again:
-
+```
 .venv\Scripts\Activate.ps1
-
+```
 After successful activation, the terminal should show:
-
+```
 (.venv)
+```
 4. Install Required Packages
 
 Install all required Python libraries using:
-
+```
 pip install -r requirements.txt
-
+```
 The main packages used by the project include:
 
 Flask
@@ -188,15 +193,15 @@ Seaborn
 5. Run the Flask Application
 
 After installing the required packages, run:
-
+```
 python app.py
-
+```
 The Flask application will start locally.
 
 You should see a local address similar to:
-
+```
 http://127.0.0.1:5000
-
+```
 Open this address in a web browser to use the application.
 
 
