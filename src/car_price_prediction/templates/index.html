@@ -22,58 +22,58 @@
             <div class="form-grid">
                 <label>Brand
                     <select name="brand" required>
-                        <option value="" selected disabled>Select Brand</option>
+                        <option value="" {% if not form_values.get("brand") %}selected{% endif %} disabled>Select Brand</option>
                         {% for option in options["brand"] %}
-                        <option value="{{ option }}">{{ option }}</option>
+                        <option value="{{ option }}" {% if form_values.get("brand") == option %}selected{% endif %}>{{ option }}</option>
                         {% endfor %}
                     </select>
                 </label>
                 <label>Fuel Type
                     <select name="fuel" required>
-                        <option value="" selected disabled>Select Fuel Type</option>
+                        <option value="" {% if not form_values.get("fuel") %}selected{% endif %} disabled>Select Fuel Type</option>
                         {% for option in options["fuel"] %}
-                        <option value="{{ option }}">{{ option }}</option>
+                        <option value="{{ option }}" {% if form_values.get("fuel") == option %}selected{% endif %}>{{ option }}</option>
                         {% endfor %}
                     </select>
                 </label>
                 <label>Seller Type
                     <select name="seller_type" required>
-                        <option value="" selected disabled>Select Seller Type</option>
+                        <option value="" {% if not form_values.get("seller_type") %}selected{% endif %} disabled>Select Seller Type</option>
                         {% for option in options["seller_type"] %}
-                        <option value="{{ option }}">{{ option }}</option>
+                        <option value="{{ option }}" {% if form_values.get("seller_type") == option %}selected{% endif %}>{{ option }}</option>
                         {% endfor %}
                     </select>
                 </label>
                 <label>Transmission
                     <select name="transmission" required>
-                        <option value="" selected disabled>Select Transmission</option>
+                        <option value="" {% if not form_values.get("transmission") %}selected{% endif %} disabled>Select Transmission</option>
                         {% for option in options["transmission"] %}
-                        <option value="{{ option }}">{{ option }}</option>
+                        <option value="{{ option }}" {% if form_values.get("transmission") == option %}selected{% endif %}>{{ option }}</option>
                         {% endfor %}
                     </select>
                 </label>
                 <label>Owner
                     <select name="owner" required>
-                        <option value="" selected disabled>Select Owner</option>
+                        <option value="" {% if not form_values.get("owner") %}selected{% endif %} disabled>Select Owner</option>
                         {% for option in options["owner"] %}
-                        <option value="{{ option }}">{{ option }}</option>
+                        <option value="{{ option }}" {% if form_values.get("owner") == option %}selected{% endif %}>{{ option }}</option>
                         {% endfor %}
                     </select>
                 </label>
                 <label>Kilometers Driven
-                    <input type="number" name="km_driven" min="0" step="1" value="50000" required>
+                    <input type="number" name="km_driven" min="0" step="1" value="{{ form_values.get('km_driven', '') }}" required>
                 </label>
                 <label>Mileage
-                    <input type="number" name="mileage" min="0" step="0.1" value="22.5" required>
+                    <input type="number" name="mileage" min="0" step="0.1" value="{{ form_values.get('mileage', '') }}" required>
                 </label>
                 <label>Engine (CC)
-                    <input type="number" name="engine" min="0" step="1" value="1248" required>
+                    <input type="number" name="engine" min="0" step="1" value="{{ form_values.get('engine', '') }}" required>
                 </label>
                 <label>Max Power (bhp)
-                    <input type="number" name="max_power" min="0" step="0.1" value="74" required>
+                    <input type="number" name="max_power" min="0" step="0.1" value="{{ form_values.get('max_power', '') }}" required>
                 </label>
                 <label>Car Age (years)
-                    <input type="number" name="car_age" min="0" step="1" value="6" required>
+                    <input type="number" name="car_age" min="0" step="1" value="{{ form_values.get('car_age', '') }}" required>
                 </label>
             </div>
             <div class="form-actions">

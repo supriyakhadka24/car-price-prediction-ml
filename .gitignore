@@ -1,6 +1,9 @@
 # Python cache files
 __pycache__/
 *.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
 
 # Virtual environments
 .venv/
@@ -17,7 +20,18 @@ env/
 
 # Environment files
 .env
+.env.*
+!.env.example
 .env.local
+
+# Build and packaging output
+build/
+dist/
+*.egg-info/
+
+# Generated ML output
+data/processed/
+*.joblib
 
 # Logs and temporary files
 *.log

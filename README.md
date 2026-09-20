@@ -1,10 +1,10 @@
-#  Car Price Prediction System
+# Car Price Prediction System
 
 A Machine Learning-based web application that predicts the estimated selling price of a used car based on its features.
 
 The project uses **Linear Regression** and **Random Forest Regression** to analyse historical used-car data. Both models are evaluated using **MAE, RMSE, and R² Score**, and **Random Forest Regression is selected as the final model** based on its better overall performance.
 
-The final model is integrated with a **Flask web application**, allowing users to enter car details and receive an estimated selling price.
+The final model is integrated with a **Flask web application**, allowing users to enter car details and receive an estimated selling price. The application currently runs locally for the semester project.
 
 ---
 
@@ -30,7 +30,7 @@ Flask Web Application
 Predicted Car Price
 
 
- Technologies Used
+## Technologies Used
 
 Python – Programming language
 Pandas & NumPy – Data processing
@@ -74,7 +74,7 @@ Car Age
 
 Categorical features are converted into numerical values during preprocessing using encoders.
 
-Project Workflow
+## Project Workflow
 
 
 Dataset
@@ -109,32 +109,59 @@ MAE	Average prediction error	Lower
 RMSE	Measures prediction error with greater weight on large errors	Lower
 R² Score	Measures how well the model explains price variation	Higher
 
-Project Structure
-Car_Price_Prediction_Linear_Regression/
-│
-├── app.py
-├── car_price_model.pkl
-├── requirements.txt
+## Project Structure
+```text
+car_price_prediction_ml/
+├── app.py                         # Local development launcher
+├── requirements.txt               # Runtime dependencies
+├── requirements-dev.txt           # Local test dependencies
 ├── .python-version
-│
-├── templates/
-│   └── index.html
-│
-├── static/
-│   └── style.css
-│
-└── Car_Price_Prediction_Linear_Regression.ipynb
+├── data/
+│   └── raw/Cardetails.csv         # Source dataset
+├── models/
+│   └── car_price_model.pkl        # Trained model artifact
+├── notebooks/
+│   └── Car_Price_Prediction.ipynb # Experimentation and training work
+├── src/
+│   └── car_price_prediction/
+│       ├── __init__.py
+│       ├── app.py                 # Flask application factory and routes
+│       ├── config.py              # Project paths and feature definitions
+│       ├── static/style.css
+│       └── templates/index.html
+└── tests/
+   └── test_app.py
+```
+
+## Local Setup
+
+Create and activate a virtual environment, then install the dependencies:
+
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install -r requirements-dev.txt
+```
+
+Start the local Flask application from the project root:
+
+```powershell
+python app.py
+```
+
+Open `http://127.0.0.1:5000` in a browser. The application is intentionally configured for local development only; no Render, Gunicorn, or hosted deployment configuration is included at this stage.
+
+Run the tests with:
+
+```powershell
+python -m pytest
+```
 
 
 
-Main Files
+## Main Files
 
-app.py – Flask application and prediction logic
-car_price_model.pkl – Saved final Random Forest model and preprocessing information
-index.html – Web application interface
-style.css – Website styling
-requirements.txt – Required Python packages
-Car_Price_Prediction_Linear_Regression.ipynb – Data analysis, preprocessing, model training, and evaluation
+`src/car_price_prediction/app.py` contains the Flask application and prediction logic. `models/car_price_model.pkl` stores the trained Random Forest model and preprocessing information. The notebook contains data analysis, preprocessing, model training, and evaluation.
 
 
 👥 Team Members
