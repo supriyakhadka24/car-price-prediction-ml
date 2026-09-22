@@ -101,32 +101,6 @@ Price Prediction
 
 ```
 
-Model Evaluation
-
-The models are evaluated using three standard regression metrics:
-
-Metric	Description	Better Result
-MAE	Average prediction error	Lower
-RMSE	Measures prediction error with greater weight on large errors	Lower
-R² Score	Measures how well the model explains price variation	Higher
-
-Project Structure
-Car_Price_Prediction_Linear_Regression/
-│
-├── app.py
-├── car_price_model.pkl
-├── requirements.txt
-├── .python-version
-│
-├── templates/
-│   └── index.html
-│
-├── static/
-│   └── style.css
-│
-└── Car_Price_Prediction_Linear_Regression.ipynb
-
-
 
 Main Files
 
